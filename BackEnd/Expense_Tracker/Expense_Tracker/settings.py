@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'users',
+    'expense__tracker',
     'rest_framework',
+    
 ]
 
 MIDDLEWARE = [
@@ -122,9 +126,23 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+### Added by the coder
+
 # for pagination.Pagination allows you to control how many objects per page are returned. To enable it add the following lines to
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
+
+MEDIA_URL = '/media/'  # URL prefix for media files
+MEDIA_ROOT = BASE_DIR / 'media'  # Local filesystem path where media will be stored
+
+AUTH_USER_MODEL = 'users.CustomUser'  # or 'yourapp.CustomUser'
+SIMPLE_JWT = {
+    'USER_ID_FIELD': 'username',  # Set once globally
+    'USER_ID_CLAIM': 'username',
+}

@@ -46,12 +46,12 @@ class CustomUserManager(BaseUserManager):
 
 
 
-class CustomUser(AbstractBaseUser,PermissionsMixin):
+class User(AbstractBaseUser,PermissionsMixin):
     # username, email, password, profile_pic, first_name, last_name
     username=models.CharField(
         max_length=40,
         unique=True,
-        primary_key=True,
+        # primary_key=True,
         validators=[letters_only_validator] # Using custom validator for charater only input,
         
     )
@@ -70,8 +70,8 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     
     
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email',]
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
     
     objects = CustomUserManager()
 
@@ -79,9 +79,9 @@ class CustomUser(AbstractBaseUser,PermissionsMixin):
         return self.username
     
     # to setisfy simple_jwt
-    @property
-    def id(self):
-        return self.username
+    # @property
+    # def id(self):
+    #     return self.username
     
 
 

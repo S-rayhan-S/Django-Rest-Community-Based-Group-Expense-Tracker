@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-lsdqd6d$aa_&pg3q4x!o&j!_o=81%47fc&g1cd9my163)$2c^#'
+SECRET_KEY = 'django-insecure-*67rjjw9h1^tsk)7=itn^e@41m7@#_spqfr4q8u-$$zcw_q-&e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,10 +41,15 @@ INSTALLED_APPS = [
     'users',
     'expense__tracker',
     'rest_framework',
+    'rest_framework.authtoken',
     
+    # for REact integration
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -52,9 +57,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    # for REact integration
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'Expense_Tracker.urls'
+
+ # for REact integration
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Your React app's URL
+]
 
 TEMPLATES = [
     {
@@ -109,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 
@@ -126,6 +140,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 ### Added by the coder
 
 # for pagination.Pagination allows you to control how many objects per page are returned. To enable it add the following lines to
@@ -141,8 +156,17 @@ REST_FRAMEWORK = {
 MEDIA_URL = '/media/'  # URL prefix for media files
 MEDIA_ROOT = BASE_DIR / 'media'  # Local filesystem path where media will be stored
 
-AUTH_USER_MODEL = 'users.CustomUser'  # or 'yourapp.CustomUser'
-SIMPLE_JWT = {
-    'USER_ID_FIELD': 'username',  # Set once globally
-    'USER_ID_CLAIM': 'username',
-}
+AUTH_USER_MODEL = 'users.User'  
+# SIMPLE_JWT = {
+#     'USER_ID_FIELD': 'username',  # Set once globally
+#     'USER_ID_CLAIM': 'username',
+# }
+
+CORS_ALLOW_ALL_ORIGINS = True  # for development only; use CORS_ALLOWED_ORIGINS in production
+
+
+
+
+
+
+

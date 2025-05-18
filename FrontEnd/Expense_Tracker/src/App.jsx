@@ -1,30 +1,20 @@
-import { Suspense } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import { AppRoutes } from './routes';
+// src/App.jsx
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Profile from "./components/Profile";
 
-import { Navbar } from "./components/layout/Navbar"; 
-import { Spinner } from "./components/common/Spinner"; 
-
-function App() {
-  // return (
-  //   <BrowserRouter>
-  //     <AuthProvider>
-  //       <div className="min-h-screen bg-gray-50">
-  //         <Navbar />
-  //         <main className="container mx-auto px-4 py-8">
-  //           <Suspense fallback={<Spinner />}>
-  //             <AppRoutes />
-  //           </Suspense>
-  //         </main>
-  //       </div>
-  //     </AuthProvider>
-  //   </BrowserRouter>
-  // );
-
-  
-  return <h1>Hello World!</h1>
-
-}
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;
